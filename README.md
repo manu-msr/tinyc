@@ -14,10 +14,10 @@ interpreters make the dynamic semantics executable.
 
 tinyC uses **natural operational semantics** as its executable model. A CES
 configuration separates control, an environment that maps identifiers to
-locations, and a store that maps locations to integers. Arithmetic
-expressions inspect this state without modifying it; commands receive an
-environment and a store and produce their final state. The Haskell
-interpreters mirror this big-step specification directly.
+locations, and a store that maps locations to stored values. Commands receive
+an environment and a store and produce their final state. Starting with v4,
+expressions also return the store because a function call can have effects.
+The Haskell interpreters mirror this big-step specification directly.
 
 ## Repository Contents
 
@@ -32,10 +32,19 @@ interpreters mirror this big-step specification directly.
   comparisons, logical negation, decision through `if`, and repetition
   through `while`.
 
+### State and Functions
+
+* [tinyC v3](TINYC03): Adds references to integer variables through `&`, `*`,
+  pointer declarations, and indirect assignment.
+
+* [tinyC v4](TINYC04): Adds sequential function declarations, value-producing
+  and `void` calls, recursion, and numeric output through `print`.
+
 ## Purpose
 
 The overarching aim of this repository is to provide a **didactic progression**
-from arithmetic evaluation to imperative control. Through its two versions,
+from arithmetic evaluation to imperative control and functions. Through its
+incremental versions,
 students and researchers are invited to analyze:
 
 * the correspondence between concrete syntax and abstract syntax,
@@ -43,6 +52,8 @@ students and researchers are invited to analyze:
 * the separation of identifiers, locations, and stored values,
 * the propagation of state through sequential composition,
 * integer conditions and the behavior of `if` and `while`, and
+* the distinction between data and function descriptors in memory,
+* the effects produced by calls inside expressions, and
 * the correspondence between big-step rules and direct interpreters.
 
 By expressing the formal semantics as small Haskell interpreters, the project
